@@ -1,9 +1,8 @@
 Frontend:
-  impl: SimpleO3
-  clock_ratio: 8
-  num_expected_insts: 500000
-  traces: 
-    - example_inst.trace
+  impl: ReadWriteTrace
+  path: trace_files/ramulator_trace.trace
+  clock_ratio: 1
+  num_expected_insts: 10000
 
   Translation:
     impl: RandomTranslation
@@ -12,16 +11,14 @@ Frontend:
 
 MemorySystem:
   impl: GenericDRAM
-  clock_ratio: 3
+  clock_ratio: 2
 
   DRAM:
     impl: DDR4
     org:
       preset: DDR4_8Gb_x8
-      channel: 1
-      rank: 2
     timing:
-      preset: DDR4_2400R 
+      preset: DDR4_2400R
 
   Controller:
     impl: Generic
@@ -30,9 +27,7 @@ MemorySystem:
     RefreshManager:
       impl: AllBank
     RowPolicy:
-      impl: ClosedRowPolicy
-      cap: 4
-    plugins:
+      impl: OpenRowPolicy
 
   AddrMapper:
     impl: RoBaRaCoCh
